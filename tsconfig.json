@@ -1,8 +1,12 @@
 {
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
-    "types": ["jest"]
+    "jsx": "react-jsx",
+    "lib": ["esnext"],
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "src/navigation/AppNavigation.tsx", "src/constants/index.ts", "src/store/userSlice.ts"],
   "exclude": ["**/node_modules", "**/Pods"]
 }
