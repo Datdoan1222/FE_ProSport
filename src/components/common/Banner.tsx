@@ -12,31 +12,40 @@ import { COLOR } from '../../constants';
 
 const { width } = Dimensions.get('window');
 
-type BannerItem = {
-  id: string;
-  image: ImageSourcePropType;
+export type BannerItem = {
+  // id: string;
+  image: string;
 };
 
 type BannerProps = {
-  data: BannerItem[];
+  data: string[];
   onPressItem?: (item: BannerItem) => void;
+  style?: any;
+  swipeEnabled?: boolean;
 };
 
-const Banner: React.FC<BannerProps> = ({ data = [], onPressItem }) => {
+const Banner: React.FC<BannerProps> = ({
+  data,
+  onPressItem,
+  style,
+  swipeEnabled = true,
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (!Array.isArray(data) || data.length === 0) return null;
 
-  const renderItem = ({ item }: { item: BannerItem }) => (
-    <Pressable onPress={() => onPressItem?.(item)}>
-      <View style={styles.item}>
-        <Image source={item.image} style={styles.image} />
-      </View>
-    </Pressable>
-  );
+  const renderItem = ({ item }: { item: string }) => {
+    return (
+      <Pressable onPress={() => onPressItem}>
+        <View style={styles.item}>
+          <Image source={{ uri: item }} style={styles.image} />
+        </View>
+      </Pressable>
+    );
+  };
 
   return (
-    <View style={styles.container}>
+    <View style={[style ? style : styles.container]}>
       <Carousel
         width={width - 32}
         height={125}
@@ -47,9 +56,9 @@ const Banner: React.FC<BannerProps> = ({ data = [], onPressItem }) => {
         onSnapToItem={setActiveIndex}
         pagingEnabled
         snapEnabled
+        enabled={swipeEnabled}
         // mode="parallax"
       />
-
       <View style={styles.pagination}>
         {data.map((_, index) => (
           <View

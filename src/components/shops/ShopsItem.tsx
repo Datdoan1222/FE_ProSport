@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Avatar, Button, Space, TextComponent } from '../common';
+import { Avatar, Banner, Button, Space, TextComponent } from '../common';
 import { FONT_SIZE, ICON_NAME, ICON_TYPE } from '../../constants';
 import { IconSetType } from '../common/IonIcons';
+import { BannerItem } from '../common/Banner';
 
 interface ShopsItemProps {
   id: string;
-  image: string;
+  images: string[];
   name: string;
   avatar: string;
   status: string;
@@ -22,19 +23,21 @@ const ShopsItem: React.FC<ShopsSectionsProps> = ({
   data,
   onPressItemSection,
 }) => {
+  console.log('img', data.images);
   return (
     <TouchableOpacity
       onPress={() => onPressItemSection}
       style={styles.container}
     >
-      <Image
-        source={{ uri: data.image }}
+      <Banner
+        data={data.images}
         style={{
-          height: 100,
           borderTopLeftRadius: 15,
           borderTopRightRadius: 15,
         }}
+        swipeEnabled={false}
       />
+
       <View style={styles.content}>
         <View style={styles.info}>
           <Avatar uri={data.avatar} size={50} />

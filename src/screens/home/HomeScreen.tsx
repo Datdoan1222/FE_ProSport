@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated } from 'react-native';
 import ScreenWrapper from '../../components/layout/ScreenWrapper';
 import { HEADER_MAX_HEIGHT } from '../../components/common/Header';
@@ -13,15 +13,28 @@ import {
 import ShopsItem from '../../components/shops/ShopsItem';
 import CategoriesSection from '../../components/Categories/CategoriesSection';
 import { Banner } from '../../components/common';
+import { RootState } from '../../store/store';
+import { fetchFacilities, useAppDispatch, useAppSelector } from '../../store';
 interface HomeScreenProps {}
 
 const HomeScreen: React.FC<HomeScreenProps> = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [bannerData, setBannerData] = useState<BannerItemProps[]>(BANNER_DATA);
+  const {
+    data: facilitiesData,
+    loading: facilitiesLoading,
+    error: facilitiesError,
+  } = useAppSelector((state: RootState) => state.facilities);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchFacilities());
+  }, [facilitiesData]);
+
+  const [bannerData, setBannerData] = useState<string[]>(BANNER_DATA);
   const [categoriesData, setCategoriesData] =
     useState<CategoryItemProps[]>(CATEGORIES_DATA);
   const [shopsData, setShopsData] = useState<ShopsItemProps[]>(SHOPS_DATA);
-  const renderItem = ({ item }: { item: ShopsItemProps }) => (
+
+  const renderItem = ({ item }: { item: any }) => (
     <ShopsItem data={item} onPressItemSection={() => {}} />
   );
   const [selectedCategory, setSelectedCategory] = useState<string>('1');
@@ -36,8 +49,8 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
       scrollY={scrollY}
     >
       <Animated.FlatList
-        data={shopsData}
-        keyExtractor={item => item.id.toString()}
+        data={facilitiesData}
+        keyExtractor={item => item._id || item.id || Math.random().toString()}
         renderItem={renderItem}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],

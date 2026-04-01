@@ -14,7 +14,13 @@ import IconButton from './IconButton';
 import IonIcons from './IonIcons';
 import Space from './Space';
 import TextComponent from './TextComponent';
-import { BUTTON_SIZE, COLOR, FONT_SIZE, ICON_NAME, ICON_TYPE } from '../../constants';
+import {
+  BUTTON_SIZE,
+  COLOR,
+  FONT_SIZE,
+  ICON_NAME,
+  ICON_TYPE,
+} from '../../constants';
 import { BANNER_DATA } from '../../data/bannerData';
 
 export const HEADER_MAX_HEIGHT = 170;
