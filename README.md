@@ -43,22 +43,6 @@ The application allows users to discover and book sports facilities easily, whil
 - Reusable components to improve development speed
 - Role-based system (User & Manager)
 
----
-
-## 📂 Project Structure
-src/
-├── assets/
-├── components/
-├── constants/
-├── data/
-├── hooks/
-├── navigation/
-├── screens/
-├── services/
-├── store/
-├── style/
-├── types/
-└── utils/
 
 ---
 
